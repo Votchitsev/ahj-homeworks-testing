@@ -12,5 +12,8 @@
         "sourceType": "module"
     },
     "rules": {
+        "no-alert":"off",
+        "no-bitwise":"off",
+        "no-cond-assign":"off"
     }
 }
