@@ -6,7 +6,7 @@ function findPayService(cardNumber) {
     6: 'maestro',
   };
 
-  return cardNumbers[cardNumber[0]];
+  return cardNumbers[String(cardNumber)[0]];
 }
 
 export default findPayService;
