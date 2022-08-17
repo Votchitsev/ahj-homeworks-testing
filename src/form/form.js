@@ -1,4 +1,5 @@
 import validateNumber from './numberValidator';
+import findPayService from './payService';
 
 class Form {
   formHtmlEl = `
@@ -10,7 +11,7 @@ class Form {
       </form>
     </div>`;
 
-  cardImgs = ['maestro.png', 'masterCard.png', 'mir.png', 'visa.png'];
+  cardImgs = ['maestro', 'masterCard', 'mir', 'visa'];
 
   drawEl() {
     document.querySelector('body').innerHTML += this.formHtmlEl;
@@ -20,7 +21,7 @@ class Form {
   addCardImg() {
     for (let i = 0; i < this.cardImgs.length; i += 1) {
       const container = document.querySelector('.card-images-container');
-      container.innerHTML += `<img src='./form/png/${this.cardImgs[i]}'>`;
+      container.innerHTML += `<img src="./form/png/${this.cardImgs[i]}.png" class="${this.cardImgs[i]}"'>`;
     }
   }
 
@@ -29,8 +30,13 @@ class Form {
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      if (validateNumber(form.querySelector('.form-input').value)) {
-        alert('yes');
+      const cardNumber = form.querySelector('.form-input').value;
+
+      if (validateNumber(cardNumber)) {
+        const payService = findPayService(cardNumber);
+        const cardImg = this.form.querySelector(`.${payService}`);
+
+        cardImg.classList.add('active');
       } else {
         alert('This card number is invalid');
         form.reset();
