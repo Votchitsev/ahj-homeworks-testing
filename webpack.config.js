@@ -7,7 +7,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
-    publicPath: '/',
   },
   devServer: {
     static: {
@@ -17,19 +16,30 @@ module.exports = {
     port: 3000,
     open: true,
   },
-  plugins: [
-    new HtmlWebpackPlugin({ template: './src/index.html' }),
-  ],
   module: {
     rules: [
       {
-        test: /\.png$/,
-        type: 'asset/resource',
+        test: /\.png$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: './form/png/',
+        },
       },
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.txt$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+        },
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({ template: './src/index.html' }),
+  ],
 };
